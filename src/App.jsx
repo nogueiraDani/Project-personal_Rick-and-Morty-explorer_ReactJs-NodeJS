@@ -1,12 +1,11 @@
-import React from "react";
 import "./index.css";
-
+import ListCharacters from "./components/ListCharacters";
 
 function App() {
   return (
     <div>
       <h1>
-        Explorador de Personagens de Rick e Morty
+        <ListCharacters />
       </h1>
     </div>
   );
