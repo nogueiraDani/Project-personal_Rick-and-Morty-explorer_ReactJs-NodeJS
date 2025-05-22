@@ -1,9 +1,9 @@
 import "./index.css";
-import ListCharacters from "./components/ListCharacters";
-import DetailsCharacter from "./components/DetailsCharacter";
+import ListCharacters from "./pages/ListCharacters";
+import DetailsCharacter from "./pages/DetailsCharacter";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-function App() {
+export default function App() {
   return (
     <Router>
       <div className="container mx-auto p-4">
@@ -24,7 +24,3 @@ function App() {
     </Router>
   );
 }
-
-export default App;
-
-//TODO: parei aqui!

@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-function CardCharacter({ character: character }) {
+export function CharacterCard({ character: character }) {
   return (
     <Link
       to={`/character/${character.id}`}
@@ -13,8 +13,10 @@ function CardCharacter({ character: character }) {
       />
       <h3 className="font-bold text-lg mt-2">{character.name}</h3>
       <p className="text-sm text-gray-600">Status: {character.status}</p>
+      <span>
+        {character.status}
+      </span>
     </Link>
   );
 }
 
-export default CardCharacter;
