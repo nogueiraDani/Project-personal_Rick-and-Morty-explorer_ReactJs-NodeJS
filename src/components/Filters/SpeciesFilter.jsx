@@ -1,7 +1,7 @@
 import { FilterSelect } from "./FilterSelect";
 
 const SPECIES_OPTIONS = [
-  { value: "", label: "Todos" },
+  { value: "           ", label: "Todos" },
   { value: "human", label: "Humano" },
   { value: "alien", label: "Alien" },
   { value: "humanoid", label: "Humanóide" },

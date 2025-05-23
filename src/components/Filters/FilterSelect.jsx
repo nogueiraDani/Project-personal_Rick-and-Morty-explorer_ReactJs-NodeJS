@@ -1,27 +1,26 @@
+import { InputLabel, Select, MenuItem, FormControl, Grid } from "@mui/material";
+
 export function FilterSelect({ id, label, value, options, onChange }) {
   return (
     <>
-      <label
-        htmlFor={id}
-        className="block text-gray-700 text-sm font-bold mb-2"
-      >
-        {label}
-      </label>
-      <select
-        id={id}
-        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-        value={value}
-        onChange={onChange}
-      >
-        {options.map((option) => (
-          <option
-            key={option.value}
-            value={option.value}
+      <Grid>
+        <FormControl fullWidth sx={{ minWidth: 350 }}>
+          <InputLabel id={id}>{label}</InputLabel>
+          <Select
+            labelId={id}
+            id={id}
+            value={value}
+            label={label}
+            onChange={onChange}
           >
-            {option.label}
-          </option>
-        ))}
-      </select>
+            {options.map((option) => (
+              <MenuItem key={option.value} value={option.value}>
+                {option.label}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+      </Grid>
     </>
   );
 }

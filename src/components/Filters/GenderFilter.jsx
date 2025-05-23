@@ -1,7 +1,7 @@
 import { FilterSelect } from "./FilterSelect";
 
 const GENDER_OPTIONS = [
-  { value: "", label: "Todos" },
+  { value: "       ", label: "Todos" },
   { value: "male", label: "Masculino" },
   { value: "female", label: "Feminino" },
   { value: "gender less", label: "Sem gênero" },

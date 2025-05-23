@@ -1,7 +1,7 @@
 import { FilterSelect } from "./FilterSelect";
 
 const STATUS_OPTIONS = [
-  { value: "", label: "Todos" },
+  { value: "        ", label: "Todos" },
   { value: "alive", label: "Vivo" },
   { value: "dead", label: "Morto" },
   { value: "unknown", label: "Desconhecido" },

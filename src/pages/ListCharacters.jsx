@@ -1,19 +1,17 @@
 import { useState, useEffect } from "react";
-import { CharacterCard } from "../components/CharacterCard/CharacterCard";
 import { SearchBar } from "../components/SearchBar/SearchBar";
 import { GenderFilter } from "../components/Filters/GenderFilter";
 import { SpeciesFilter } from "../components/Filters/SpeciesFilter";
 import { StatusFilter } from "../components/Filters/StatusFilter";
-import { Pagination } from "../components/Pagination/Pagination";
+import { Container, Grid, ImageList, Pagination } from "@mui/material";
+import { CharacterCard } from "../components/CharacterCard/CharacterCard";
 
 function ListCharacters() {
   const [characters, setCharacters] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(0);
-  const [prevPageUrl, setPrevPageUrl] = useState(null);
-  const [nextPageUrl, setNextPageUrl] = useState(null);
+  const [totalPages, setTotalPages] = useState(1);
   const [statusFilter, setStatusFilter] = useState("");
   const [speciesFilter, setSpeciesFilter] = useState("");
   const [genderFilter, setGenderFilter] = useState("");
@@ -51,8 +49,6 @@ function ListCharacters() {
       .then((data) => {
         setCharacters(data.results);
         setTotalPages(data.info.pages);
-        setPrevPageUrl(data.info.prev);
-        setNextPageUrl(data.info.next);
         setLoading(false);
       })
       .catch((error) => {
@@ -60,18 +56,6 @@ function ListCharacters() {
         setLoading(false);
       });
   }, [currentPage, statusFilter, speciesFilter, genderFilter, nameFilter]);
-
-  const goToPreviousPage = () => {
-    if (prevPageUrl) {
-      setCurrentPage(prevPageUrl.split("=").pop());
-    }
-  };
-
-  const goToNextPage = () => {
-    if (nextPageUrl) {
-      setCurrentPage(nextPageUrl.split("=").pop());
-    }
-  };
 
   const handleNameSearch = (e) => {
     e.preventDefault();
@@ -99,55 +83,53 @@ function ListCharacters() {
   }
 
   return (
-    <div>
-      <h2>Lista de Personagens</h2>
-
-      {/* Campo de busca por nome */}
-      <div className="mb-4">
+    <>
+      <Container sx={{ p: 0, mb: 2 }}>
+        <h2>Lista de Personagens</h2>
         <SearchBar
           handleNameSearch={handleNameSearch}
           inputName={inputName}
           setInputName={setInputName}
           handleClearSearch={handleClearSearch}
         />
-      </div>
+      </Container>
 
-      <div className="mb-4">
-        <GenderFilter
-          value={genderFilter}
-          onChange={handleFilterChange(setGenderFilter)}
-        />
-      </div>
-      <div className="mb-4">
-        <StatusFilter
-          value={statusFilter}
-          onChange={handleFilterChange(setStatusFilter)}
-        />
-      </div>
-      <div className="mb-4">
-        <SpeciesFilter
-          value={speciesFilter}
-          onChange={handleFilterChange(setSpeciesFilter)}
-        />
-      </div>
-
-      <div className="grid grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-4">
-        {characters.map((character) => (
-          <CharacterCard
-            key={character.id}
-            character={character}
+      <Container sx={{ mb: 2 }}>
+        <Grid container justifyContent="space-between">
+          <GenderFilter
+            value={genderFilter}
+            onChange={handleFilterChange(setGenderFilter)}
           />
-        ))}
-      </div>
-      <Pagination
-        goToPreviousPage={goToPreviousPage}
-        prevPageUrl={prevPageUrl}
-        currentPage={currentPage}
-        goToNextPage={goToNextPage}
-        nextPageUrl={nextPageUrl}
-        totalPages={totalPages}
-      />
-    </div>
+
+          <StatusFilter
+            value={statusFilter}
+            onChange={handleFilterChange(setStatusFilter)}
+          />
+
+          <SpeciesFilter
+            value={speciesFilter}
+            onChange={handleFilterChange(setSpeciesFilter)}
+          />
+        </Grid>
+      </Container>
+
+      <Container>
+        <ImageList fullwidht={true} cols={3} sx={{ mb: 2 }}>
+          {characters.map((character) => (
+            <CharacterCard key={character.id} character={character} />
+          ))}
+        </ImageList>
+        <Grid container justifyContent="center">
+          <Pagination
+            count={totalPages}
+            variant="outlined"
+            shape="rounded"
+            page={currentPage}
+            onChange={(e, value) => setCurrentPage(value)}
+          />
+        </Grid>
+      </Container>
+    </>
   );
 }
 
